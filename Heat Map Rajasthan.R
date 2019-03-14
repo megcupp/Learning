@@ -1,8 +1,7 @@
-## Heat map for susrita
-#clean work space
+## Heat map for Susrita
+# clean work space
 remove(list = ls())
 
-## geom data for India at district level
 library(leaflet)
 library(maps)
 library(geojson)
@@ -12,12 +11,18 @@ library(rjson)
 library(jsonlite)
 library(leaflet)
 
+## data for India at district level - level 2 GADM
+
 ## Base file for India map downloaded from GADM: https://gadm.org/download_country_v3.html 
 gadm36_IND_2_sp <- readRDS("~/Desktop/gadm36_IND_2_sp.rds")
+
+# subset only to Rajasthan
 Rajasthan <-  subset(gadm36_IND_2_sp, NAME_1=="Rajasthan")
+
+# Check district names in Rajasthan
 Rajasthan@data[["NAME_2"]]
 
-## add datafile to overlay
+## add datafile to overlay color in map
 library(readxl)
 Data <- read_excel("Data of accesible institutions.xlsx")
 
@@ -48,7 +53,7 @@ Rajasthan_map %>% addPolygons(stroke = FALSE,
   addLegend(pal = binpal, values = Rajasthan@data[["Data$perc.CHC.PHC"]], opacity = 1, title = "% of Difficult and Very Difficult CHC + PHC")
 
 
-
+#coloring for raw count
 binpal <- colorBin("Reds", Rajasthan@data[["Data$total.CHC.PHC"]], 6, pretty = FALSE)
 
 Rajasthan_map %>% addPolygons(stroke = FALSE, 
@@ -57,7 +62,7 @@ Rajasthan_map %>% addPolygons(stroke = FALSE,
   addLegend(pal = binpal, values = Rajasthan@data[["Data$perc.CHC.PHC"]], opacity = 1, title = "Total CHC + PHC")
 
 
-
+#coloring for no. difficult
 binpal <- colorBin("Reds", Rajasthan@data[["Data$no.CHC.PHC"]], 6, pretty = FALSE)
 
 Rajasthan_map %>% addPolygons(stroke = FALSE, 
@@ -66,7 +71,7 @@ Rajasthan_map %>% addPolygons(stroke = FALSE,
   addLegend(pal = binpal, values = Rajasthan@data[["Data$perc.CHC.PHC"]], opacity = 1, title = "No. of Difficult and Very Difficult CHC + PHC")
 
 
-
+#coloring for sterilisation
 binpal <- colorBin("Reds", Rajasthan@data[["Data$No.Sterilization"]], 6, pretty = FALSE)
 
 Rajasthan_map %>% addPolygons(stroke = FALSE, 
@@ -75,7 +80,7 @@ Rajasthan_map %>% addPolygons(stroke = FALSE,
   addLegend(pal = binpal, values = Rajasthan@data[["Data$perc.CHC.PHC"]], opacity = 1, title = "No. of PPP for Sterilization")
 
 
-
+#coloring for JSY
 binpal <- colorBin("Reds", Rajasthan@data[["Data$No.JSY"]], 6, pretty = FALSE)
 
 Rajasthan_map %>% addPolygons(stroke = FALSE, 
@@ -83,3 +88,5 @@ Rajasthan_map %>% addPolygons(stroke = FALSE,
                               color = ~binpal(Rajasthan@data[["Data$No.JSY"]])) %>% 
   addLegend(pal = binpal, values = Rajasthan@data[["Data$perc.CHC.PHC"]], opacity = 1, title = "No. of PPP for JSY")
 
+#clear space
+remove(list = ls())
