@@ -45,48 +45,64 @@ Rajasthan_map <- leaflet(Rajasthan) %>%
 
 
 #coloring for % data
-binpal <- colorBin("Reds", Rajasthan@data[["Data$perc.CHC.PHC"]], 6, pretty = FALSE)
+binpal <- colorBin("Reds", Rajasthan@data[["Data$perc.CHC.PHC"]], 6, pretty = TRUE)
 
-Rajasthan_map %>% addPolygons(stroke = FALSE, 
-                              smoothFactor = 0.2, fillOpacity = 1,
-                              color = ~binpal(Rajasthan@data[["Data$perc.CHC.PHC"]])) %>% 
-  addLegend(pal = binpal, values = Rajasthan@data[["Data$perc.CHC.PHC"]], opacity = 1, title = "% of Difficult and Very Difficult CHC + PHC")
-
-
-#coloring for raw count
-binpal <- colorBin("Reds", Rajasthan@data[["Data$total.CHC.PHC"]], 6, pretty = FALSE)
-
-Rajasthan_map %>% addPolygons(stroke = FALSE, 
-                              smoothFactor = 0.2, fillOpacity = 1,
-                              color = ~binpal(Rajasthan@data[["Data$total.CHC.PHC"]])) %>% 
-  addLegend(pal = binpal, values = Rajasthan@data[["Data$perc.CHC.PHC"]], opacity = 1, title = "Total CHC + PHC")
+Rajasthan_map %>% addPolygons(fillColor = ~binpal(Rajasthan@data[["Data$perc.CHC.PHC"]]), 
+                              weight = 1, 
+                              smoothFactor = 0.5,
+                              color = "black",
+                              dashArray = "1", 
+                              fillOpacity = 1) %>% 
+  addLegend(pal = binpal, values = Rajasthan@data[["Data$perc.CHC.PHC"]], opacity = 1, 
+            title = "% of Difficult and Very Difficult CHC + PHC")
 
 
-#coloring for no. difficult
-binpal <- colorBin("Reds", Rajasthan@data[["Data$no.CHC.PHC"]], 6, pretty = FALSE)
+binpal <- colorBin("Reds", Rajasthan@data[["Data$total.CHC.PHC"]], 6, pretty = TRUE)
 
-Rajasthan_map %>% addPolygons(stroke = FALSE, 
-                              smoothFactor = 0.2, fillOpacity = 1,
-                              color = ~binpal(Rajasthan@data[["Data$no.CHC.PHC"]]))  %>% 
-  addLegend(pal = binpal, values = Rajasthan@data[["Data$perc.CHC.PHC"]], opacity = 1, title = "No. of Difficult and Very Difficult CHC + PHC")
-
-
-#coloring for sterilisation
-binpal <- colorBin("Reds", Rajasthan@data[["Data$No.Sterilization"]], 6, pretty = FALSE)
-
-Rajasthan_map %>% addPolygons(stroke = FALSE, 
-                              smoothFactor = 0.2, fillOpacity = 1,
-                              color = ~binpal(Rajasthan@data[["Data$No.Sterilization"]])) %>% 
-  addLegend(pal = binpal, values = Rajasthan@data[["Data$perc.CHC.PHC"]], opacity = 1, title = "No. of PPP for Sterilization")
+Rajasthan_map %>% addPolygons(fillColor = ~binpal(Rajasthan@data[["Data$total.CHC.PHC"]]), 
+                              weight = 1, 
+                              smoothFactor = 0.5,
+                              color = "black",
+                              dashArray = "1",  
+                              fillOpacity = 1) %>% 
+  addLegend(pal = binpal, values = Rajasthan@data[["Data$total.CHC.PHC"]], opacity = 1, 
+            title = "Total CHC + PHC")
 
 
-#coloring for JSY
-binpal <- colorBin("Reds", Rajasthan@data[["Data$No.JSY"]], 6, pretty = FALSE)
+binpal <- colorBin("Reds", Rajasthan@data[["Data$no.CHC.PHC"]], 6, pretty = TRUE)
 
-Rajasthan_map %>% addPolygons(stroke = FALSE, 
-                              smoothFactor = 0.2, fillOpacity = 1,
-                              color = ~binpal(Rajasthan@data[["Data$No.JSY"]])) %>% 
-  addLegend(pal = binpal, values = Rajasthan@data[["Data$perc.CHC.PHC"]], opacity = 1, title = "No. of PPP for JSY")
+Rajasthan_map %>% addPolygons(fillColor = ~binpal(Rajasthan@data[["Data$no.CHC.PHC"]]), 
+                              weight = 1, 
+                              smoothFactor = 0.5,
+                              color = "black",
+                              dashArray = "1",  
+                              fillOpacity = 1) %>% 
+  addLegend(pal = binpal, values = Rajasthan@data[["Data$no.CHC.PHC"]], opacity = 1, 
+            title = "No. of Difficult and Very Difficult CHC + PHC")
+
+
+binpal <- colorBin("Reds", Rajasthan@data[["Data$No.Sterilization"]], 6, pretty = TRUE)
+
+Rajasthan_map %>% addPolygons(fillColor = ~binpal(Rajasthan@data[["Data$No.Sterilization"]]), 
+                              weight = 1, 
+                              smoothFactor = 0.5,
+                              color = "black",
+                              dashArray = "1",  
+                              fillOpacity = 1) %>% 
+  addLegend(pal = binpal, values = Rajasthan@data[["Data$No.Sterilization"]], opacity = 1, 
+            title = "No. of PPP for Sterilization")
+
+
+binpal <- colorBin("Reds", Rajasthan@data[["Data$No.JSY"]], 6, pretty = TRUE)
+
+Rajasthan_map %>% addPolygons(fillColor = ~binpal(Rajasthan@data[["Data$No.JSY"]]), 
+                              weight = 1, 
+                              smoothFactor = 0.5,
+                              color = "black",
+                              dashArray = "1",  
+                              fillOpacity = 1) %>% 
+  addLegend(pal = binpal, values = Rajasthan@data[["Data$No.JSY"]], opacity = 1, 
+            title = "No. of PPP for JSY")
 
 #clear space
 remove(list = ls())
